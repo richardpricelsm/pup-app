@@ -1,8 +1,5 @@
 <script lang="ts">
-	// import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
-	// Your custom Skeleton theme:
-	import '../../theme.postcss';
-
+	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import '../../app.postcss';
 
@@ -10,7 +7,8 @@
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
 
 	import Navigation from '$lib/Navigation/Navigation.svelte';
-	import type { LayoutData } from '../$types';
+	import type { LayoutData } from './$types';
+	import Footer from '$lib/Footer/Footer.svelte';
 
 	function drawerOpen(): void {
 		drawerStore.open({});
@@ -22,7 +20,11 @@
 <Drawer>
 	<h2 class="p-4">Navigation</h2>
 	<hr />
-	<Navigation menu={data.menu} />
+	{#await Navigation}
+		<div class="placeholder animate-pulse rounded-container-token w-full h-84" />
+	{:then}
+		<Navigation menu={data.menu} />
+	{/await}
 </Drawer>
 
 <AppShell slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64">
@@ -65,4 +67,7 @@
 		</section>
 		<slot name="sidebanner-right" />
 	</main>
+	<svelte:fragment slot="pageFooter">
+		<Footer directory={data.directory} />
+	</svelte:fragment>
 </AppShell>

@@ -1,3 +1,5 @@
+import { Directory } from '.';
+
 export interface Ribbon {
 	label: string;
 	backgroundColour: string;
@@ -99,4 +101,9 @@ export interface Menu {
 		dataIcon: string;
 	};
 	slug: string;
+}
+
+export interface Directory {
+	id: number;
+	title: string;
 }

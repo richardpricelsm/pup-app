@@ -1,10 +1,11 @@
 import type { LayoutLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import { Menu, Site } from '$lib/api';
+import { Directory, Menu, Site } from '$lib/api';
 
 export const load = (async () => {
 	const site = await Site.getSite();
 	const menu = await Menu.getMenu();
+	const directory = await Directory.getDirectory();
 
 	if (!site) {
 		return error(404, 'Site not found');
@@ -12,5 +13,8 @@ export const load = (async () => {
 	if (!menu) {
 		return error(404, 'Menu not found');
 	}
-	return { site, menu };
+	if (!directory) {
+		return error(404, 'Directory not found');
+	}
+	return { site, menu, directory };
 }) satisfies LayoutLoad;

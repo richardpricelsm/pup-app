@@ -22,15 +22,15 @@
 	});
 </script>
 
-<div class="py-4 items-center">
+<div class="my-4 items-center max-h-[400px]">
 	{#if !loaded}
-		<div class="placeholder animate-pulse w-full" />
+		<div class="placeholder animate-pulse w-full h-[400px] rounded-container-token" />
 	{:else}
 		<img
-			class="snap-center w-full rounded-container-token card-hover mx-auto"
+			class="snap-center h-full rounded-container-token card-hover mx-auto"
 			src={image}
 			alt="Unsplash"
-			loading="lazy"
+			loading="eager"
 		/>
 	{/if}
 </div>

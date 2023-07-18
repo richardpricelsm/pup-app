@@ -52,7 +52,7 @@
 		<img src={card.banner.large.location} class="bg-black/50 h-full mx-auto" alt="Post" />
 	</main>
 {:else}
-	<main class="card variant-filled card-hover overflow-hidden">
+	<main class="card variant-ghost card-hover overflow-hidden">
 		<header class="w-full">
 			<img src={card.brandLogo?.large.location} class="bg-black/50 h-full" alt="Post" />
 		</header>

@@ -1,8 +1,8 @@
 <script lang="ts">
+	import type { Menu } from '$lib/api/types';
 	import { drawerStore } from '@skeletonlabs/skeleton';
-	import { Menu } from '$lib/api';
 
-	export let menu: Menu;
+	export let menu: Menu[];
 
 	function drawerClose(): void {
 		drawerStore.close();
