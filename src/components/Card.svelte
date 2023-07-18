@@ -1,0 +1,80 @@
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import type { Card } from '$lib/api/types';
+
+	export let card: Card;
+
+	let loaded = false;
+	let failed = false;
+
+	onMount(() => {
+		const img = new Image();
+
+		if (card.banner) {
+			img.src = card.banner?.large.location;
+		} else if (card.brandLogo) {
+			img.src = card.brandLogo?.small.location;
+		} else {
+			return null;
+		}
+
+		img.onload = () => {
+			loaded = true;
+		};
+		img.onerror = () => {
+			failed = true;
+		};
+	});
+</script>
+
+{#if !loaded}
+	<section class="card w-full">
+		<div class="p-4 space-y-4">
+			<div class="placeholder animate-pulse py-12" />
+			<div class="grid grid-cols-2 gap-8">
+				<div class="placeholder animate-pulse py-4" />
+			</div>
+			<div class="placeholder animate-pulse py-3" />
+			<div class="placeholder animate-pulse py-3" />
+			<div class="placeholder animate-pulse py-3" />
+			<div class="grid grid-cols-2 gap-3">
+				<div class="placeholder animate-pulse py-5" />
+				<div class="placeholder animate-pulse py-5" />
+			</div>
+
+			<div class="placeholder animate-pulse" />
+			<div class="placeholder animate-pulse" />
+			<div class="placeholder animate-pulse" />
+		</div>
+	</section>
+{:else if card.banner}
+	<main class="card variant-filled card-hover overflow-hidden">
+		<img src={card.banner.large.location} class="bg-black/50 h-full mx-auto" alt="Post" />
+	</main>
+{:else}
+	<main class="card variant-filled card-hover overflow-hidden">
+		<header class="w-full">
+			<img src={card.brandLogo?.large.location} class="bg-black/50 h-full" alt="Post" />
+		</header>
+		<div class="p-4 space-y-4">
+			{#if card.ribbon}
+				<h6 class="h6 chip variant-ghost-primary">{card.ribbon?.label}</h6>
+			{/if}
+			<article class="items-center justify-center">
+				<h3 class="h3">{card.offer}</h3>
+				<h3 class="h3">{card.condition}</h3>
+				<h3 class="h3">{card.bonus}</h3>
+			</article>
+			<div class="flex-auto flex justify-around items-center m-1">
+				<a href={`/how-to-claim/${card.id}`} class="btn variant-filled-secondary">How to Claim</a>
+				<a href={card.trackingLink} class="btn variant-filled-primary">Claim Now</a>
+			</div>
+		</div>
+		<hr class="opacity-50" />
+		<footer class="p-4 flex justify-start items-center space-x-4">
+			<a class="text-xs" href={card.tsAndCsLink}>
+				{card.tsAndCs}
+			</a>
+		</footer>
+	</main>
+{/if}

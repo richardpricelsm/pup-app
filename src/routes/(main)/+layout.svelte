@@ -1,0 +1,68 @@
+<script lang="ts">
+	// import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
+	// Your custom Skeleton theme:
+	import '../../theme.postcss';
+
+	import '@skeletonlabs/skeleton/styles/skeleton.css';
+	import '../../app.postcss';
+
+	import { AppBar, AppShell } from '@skeletonlabs/skeleton';
+	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+
+	import Navigation from '$lib/Navigation/Navigation.svelte';
+	import type { LayoutData } from '../$types';
+
+	function drawerOpen(): void {
+		drawerStore.open({});
+	}
+
+	export let data: LayoutData;
+</script>
+
+<Drawer>
+	<h2 class="p-4">Navigation</h2>
+	<hr />
+	<Navigation menu={data.menu} />
+</Drawer>
+
+<AppShell slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64">
+	<svelte:fragment slot="header">
+		<AppBar
+			gridColumns="grid-cols-3 "
+			slotDefault="place-self-center"
+			slotTrail="place-content-end"
+		>
+			<svelte:fragment slot="lead">
+				<div class="flex items-center">
+					<button class="lg:hidden btn btn-sm mr-4" on:click={drawerOpen}>
+						<span>
+							<svg viewBox="0 0 100 80" class="fill-token w-4 h-4">
+								<rect width="100" height="20" />
+								<rect y="30" width="100" height="20" />
+								<rect y="60" width="100" height="20" />
+							</svg>
+						</span>
+					</button>
+				</div>
+			</svelte:fragment>
+			<a href="/" slot="default">
+				<img
+					class="h-8 text-white"
+					alt="site logo"
+					src="https://d37brx5gwsr21q.cloudfront.net/image/2021/8/16/cad13ed0-4d3c-11ec-96a8-b749a4fff5d9.svg"
+				/>
+			</a>
+		</AppBar>
+	</svelte:fragment>
+	<svelte:fragment slot="sidebarLeft">
+		<Navigation menu={data.menu} />
+	</svelte:fragment>
+
+	<main>
+		<slot name="sidebanner-left" />
+		<section class="max-w-7xl mx-auto">
+			<slot />
+		</section>
+		<slot name="sidebanner-right" />
+	</main>
+</AppShell>
