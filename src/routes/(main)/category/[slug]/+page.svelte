@@ -6,7 +6,7 @@
 	export let data: PageData;
 </script>
 
-<main>
+<main class="px-4">
 	<Carousel image={data.category.welcomeMessage.backgroundImage.large.location} />
 	<section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 		{#each data.category.cards.xl as card, i}

@@ -3,9 +3,6 @@ import { error } from '@sveltejs/kit';
 import { Category } from '$lib/api';
 
 export const load = (async ({ params }) => {
-	const category = await Category.getCategory(params.slug);
-	if (category) {
-		return { category };
-	}
-	throw error(404, 'category not found');
+	const category = async () => await Category.getCategory(params.slug);
+	return { category: category() };
 }) satisfies LayoutLoad;

@@ -1,10 +1,13 @@
 <script lang="ts">
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
+	import '@fortawesome/fontawesome-svg-core/styles.css'; // Import the CSS
 	import '../../app.postcss';
 
 	import { AppBar, AppShell } from '@skeletonlabs/skeleton';
 	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+
+	import { config } from '@fortawesome/fontawesome-svg-core';
 
 	import Navigation from '$lib/Navigation/Navigation.svelte';
 	import type { LayoutData } from './$types';
@@ -15,6 +18,8 @@
 	}
 
 	export let data: LayoutData;
+
+	config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 </script>
 
 <Drawer>
@@ -26,7 +31,6 @@
 		<Navigation menu={data.menu} />
 	{/await}
 </Drawer>
-
 <AppShell slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64">
 	<svelte:fragment slot="header">
 		<AppBar
@@ -60,7 +64,7 @@
 		<Navigation menu={data.menu} />
 	</svelte:fragment>
 
-	<main>
+	<main class="pb-4">
 		<slot name="sidebanner-left" />
 		<section class="max-w-7xl mx-auto">
 			<slot />

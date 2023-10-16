@@ -2,7 +2,7 @@
 	import type { Menu } from '$lib/api/types';
 	import { drawerStore } from '@skeletonlabs/skeleton';
 
-	export let menu: Menu[];
+	export let menu: Menu[] | undefined;
 
 	function drawerClose(): void {
 		drawerStore.close();

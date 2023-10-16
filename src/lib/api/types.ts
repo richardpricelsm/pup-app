@@ -107,3 +107,21 @@ export interface Directory {
 	id: number;
 	title: string;
 }
+
+export interface Offer {
+	active: boolean;
+	id: number;
+	title: string;
+	trackingLink: string;
+	offer: string;
+	bonus: string;
+	condition: string;
+	tsAndCs: string;
+	tsAndCsLink: string;
+	limiter: number;
+	brandName: string | undefined;
+	brandLogo: ResponsiveAsset | undefined;
+	ltid: string;
+	ribbon?: Ribbon;
+	htcHeroBannerResponsiveAsset?: ResponsiveAsset;
+}
