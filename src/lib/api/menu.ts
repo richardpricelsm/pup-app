@@ -1,12 +1,10 @@
-import axios, { type AxiosResponse } from 'axios';
+import axios from 'axios';
 import type { Menu } from './types';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 
-export const getMenu = async (): Promise<AxiosResponse<Menu> | null> => {
+export const getMenu = async (): Promise<Menu | null> => {
 	try {
-		console.time('requestMenu');
-		const data = await axios.get<Menu>(`${PUBLIC_BASE_URL}site/1/menus`);
-		console.timeEnd('requestMenu');
+		const { data } = await axios.get<Menu>(`${PUBLIC_BASE_URL}site/1/menus`);
 		return data;
 	} catch (e) {
 		return null;
